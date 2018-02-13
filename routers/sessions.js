@@ -51,7 +51,7 @@ router.post('/', (req, res) => {
     startTime: req.body.startTime,
     endTime: req.body.endTime,
     location: req.body.location,
-    desciption: req.body.desciption,
+    description: req.body.desciption,
     notes:req.body.notes,
     attendees: req.body.attendees
   })
