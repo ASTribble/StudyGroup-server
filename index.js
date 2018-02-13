@@ -3,14 +3,17 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
 
-const studyGroup = require('./routers/study-group');
+const routerSessions = require('./routers/sessions');
 
 const {PORT, CLIENT_ORIGIN} = require('./config');
 const {dbConnect} = require('./db-mongoose');
 // const {dbConnect} = require('./db-knex');
 
 const app = express();
+
+app.use(bodyParser.json());
 
 console.log('client origin:', CLIENT_ORIGIN);
 app.use(
@@ -25,7 +28,9 @@ app.use(
   })
 );
 
-app.use('/studyGroup', studyGroup);
+app.use('/sessions', routerSessions);
+
+
 
 
 function runServer(port = PORT) {

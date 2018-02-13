@@ -2,14 +2,16 @@
 
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-// const {DATABASE_URL} = require('./config');
 
 const SessionSchema = mongoose.Schema({
   title: String,
-  timeStart: { type: Date, required: true },
-  timeEnd: { type: Date, required: true},
+  date: { type: String, required: true },
+  startTime: { type: String, required: true },
+  endTime: { type: String, required: true},
   location: {type: String, required: true},
-  attendees: String
+  description: String,
+  notes:[{type: String}],
+  attendees: [{type: String}],
 });
 
 const LocationSchema = mongoose.Schema({
@@ -19,6 +21,26 @@ const LocationSchema = mongoose.Schema({
   notes:[{type: String}],
   ratings: [{type: Number}]
 });
+
+SessionSchema.methods.serialize = function(){
+  return {
+    id: this.id,
+    title: this.title,
+    date: this.date,
+    startTime: this.startTime,
+    endTime: this.endTime,
+    location: this.location,
+    description: this.description,
+    notes: this.notes,
+    attendees: this.attendees
+  }
+}
+
+
+const Session = mongoose.model('Session', SessionSchema);
+const Location = mongoose.model('Location', LocationSchema);
+
+module.exports = { Session, Location };
 
 //   songs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Song' }]
 // });
@@ -52,7 +74,3 @@ const LocationSchema = mongoose.Schema({
 //   };
 // };
 
-const Session = mongoose.model('Session', SessionSchema);
-const Location = mongoose.model('Location', LocationSchema);
-
-module.exports = { Session, Location };
