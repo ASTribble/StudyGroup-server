@@ -12,7 +12,10 @@ router.get('/', (req, res) => {
   Session
     .find()
     .then(sessions => {
-      res.json(sessions);
+      res.json({
+        sessions: sessions.map(
+          (session) => session.serialize())
+      });
     })
     .catch(err =>{
       console.error(err);
@@ -24,7 +27,7 @@ router.get('/:id', (req, res)=>{
   
   Session
     .findById(req.params.id)
-    .then(session => res.json(session))
+    .then(session => res.json(session.serialize()))
     .catch(err =>{
       console.error(err);
       res.status(500).json({message: 'Internal server error'});
@@ -55,7 +58,7 @@ router.post('/', (req, res) => {
     notes:req.body.notes,
     attendees: req.body.attendees
   })
-  .then(session => res.status(201).json(session))
+  .then(session => res.status(201).json(session.serialize()))
   .catch(err => {
     console.error(err);
     res.status(500).json({ message: 'Internal server error' });
