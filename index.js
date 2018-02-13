@@ -12,6 +12,7 @@ const {dbConnect} = require('./db-mongoose');
 
 const app = express();
 
+console.log('client origin:', CLIENT_ORIGIN);
 app.use(
   morgan(process.env.NODE_ENV === 'production' ? 'common' : 'dev', {
     skip: (req, res) => process.env.NODE_ENV === 'test'
