@@ -35,7 +35,7 @@ router.get('/:id', (req, res)=>{
 });
 
 router.post('/', (req, res) => {
-
+  console.log('post req.body:', req.body);
   const requiredFields = ['date', 'startTime', 'endTime', 'location'];
   
   for (let i = 0; i < requiredFields.length; i++) {
@@ -55,8 +55,8 @@ router.post('/', (req, res) => {
     endTime: req.body.endTime,
     location: req.body.location,
     description: req.body.desciption,
-    notes:req.body.notes,
-    attendees: req.body.attendees
+    notes:[...req.body.notes],
+    attendees: [...req.body.attendees]
   })
   .then(session => res.status(201).json(session.serialize()))
   .catch(err => {
@@ -75,11 +75,16 @@ router.put('/:id', (req, res)=>{
   }
 
   const toUpdate = {};
-  const updateableFields = ['title', 'date', 'startTime', 'endTime', 'location', 'description', 'notes', 'attendees'];
+  const updateableFields = ['title', 'date', 'startTime', 'endTime', 'location','notes', 'attendees'];
 
   updateableFields.forEach(field => {
     if (field in req.body) {
+      if(field === 'notes' || field === 'attendees'){
+        toUpdate[field] = [...req.body[field]]
+      }
+      else{
       toUpdate[field] = req.body[field];
+      }
     }
   });
 

@@ -9,7 +9,6 @@ const SessionSchema = mongoose.Schema({
   startTime: { type: String, required: true },
   endTime: { type: String, required: true},
   location: {type: String, required: true},
-  description: String,
   notes:[{type: String}],
   attendees: [{type: String}],
 });
