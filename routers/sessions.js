@@ -3,8 +3,6 @@
 const express = require('express');
 const router = express.Router();
 const {Session} = require('../models/models');
-// const bodyParser = require('body-parser');
-// const mongoose = require('mongoose');
 
 
 router.get('/', (req, res) => {
@@ -22,6 +20,7 @@ router.get('/', (req, res) => {
       res.status(500).json({message: 'Internal server error'});
     });
 });
+
 
 router.get('/:id', (req, res)=>{
   
@@ -93,6 +92,13 @@ router.put('/:id', (req, res)=>{
   .findByIdAndUpdate(req.params.id, { $set: toUpdate }, {new: true})
   .then(session => res.json(session.serialize()))
   .catch(err => res.status(500).json({ message: 'Internal server error' }));
+});
+
+router.delete('/:id', (req, res) => {
+  Session
+    .findByIdAndRemove(req.params.id)
+    .then(() => res.status(200).json({mesage: 'Item was deleted'}))
+    .catch(err => res.status(500).json({ message: 'Internal server error' }));
 });
 
 
