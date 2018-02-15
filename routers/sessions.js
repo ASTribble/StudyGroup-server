@@ -90,8 +90,8 @@ router.put('/:id', (req, res)=>{
 
   Session
   // all key/value pairs in toUpdate will be updated -- that's what `$set` does
-  .findByIdAndUpdate(req.params.id, { $set: toUpdate })
-  .then(session => res.status(204).end())
+  .findByIdAndUpdate(req.params.id, { $set: toUpdate }, {new: true})
+  .then(session => res.json(session.serialize()))
   .catch(err => res.status(500).json({ message: 'Internal server error' }));
 });
 
