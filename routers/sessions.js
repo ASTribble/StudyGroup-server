@@ -78,13 +78,8 @@ router.put('/:id', (req, res)=>{
 
   updateableFields.forEach(field => {
     if (field in req.body) {
-      if(field === 'notes' || field === 'attendees'){
-        toUpdate[field] = [...req.body[field]]
-      }
-      else{
       toUpdate[field] = req.body[field];
       }
-    }
   });
 
   Session
