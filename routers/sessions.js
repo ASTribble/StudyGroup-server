@@ -35,7 +35,7 @@ router.get('/:id', (req, res)=>{
 
 router.post('/', (req, res) => {
   console.log('post req.body:', req.body);
-  const requiredFields = ['date', 'startTime', 'endTime', 'location'];
+  const requiredFields = ['startTime', 'endTime', 'location'];
   
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -73,7 +73,7 @@ router.put('/:id', (req, res)=>{
   }
 
   const toUpdate = {};
-  const updateableFields = ['title', 'date', 'startTime', 'endTime', 'location','notes', 'attendees'];
+  const updateableFields = ['title','startTime', 'endTime', 'location','description','notes', 'attendees'];
 
   updateableFields.forEach(field => {
     if (field in req.body) {
