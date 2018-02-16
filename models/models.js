@@ -5,10 +5,10 @@ mongoose.Promise = global.Promise;
 
 const SessionSchema = mongoose.Schema({
   title: String,
-  date: { type: Date, required: true },
   startTime: { type: Date, required: true },
   endTime: { type: Date, required: true},
   location: {type: String, required: true},
+  description: String,
   notes:[{type: String}],
   attendees: [{type: String}],
 });
@@ -25,7 +25,6 @@ SessionSchema.methods.serialize = function(){
   return {
     id: this.id,
     title: this.title,
-    date: this.date,
     startTime: this.startTime,
     endTime: this.endTime,
     location: this.location,

@@ -30,7 +30,7 @@ router.get('/:id', (req, res)=>{
     .catch(err =>{
       console.error(err);
       res.status(500).json({message: 'Internal server error'});
-  });
+    });
 });
 
 router.post('/', (req, res) => {
@@ -47,21 +47,20 @@ router.post('/', (req, res) => {
   };
 
   Session
-  .create({
-    title: req.body.title,
-    date: req.body.date,
-    startTime: req.body.startTime,
-    endTime: req.body.endTime,
-    location: req.body.location,
-    description: req.body.desciption,
-    notes:[...req.body.notes],
-    attendees: [...req.body.attendees]
-  })
-  .then(session => res.status(201).json(session.serialize()))
-  .catch(err => {
-    console.error(err);
-    res.status(500).json({ message: 'Internal server error' });
-  });
+    .create({
+      title: req.body.title,
+      startTime: req.body.startTime,
+      endTime: req.body.endTime,
+      location: req.body.location,
+      description: req.body.description,
+      notes:[...req.body.notes],
+      attendees: [...req.body.attendees]
+    })
+    .then(session => res.status(201).json(session.serialize()))
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({ message: 'Internal server error' });
+    });
 });
 
 router.put('/:id', (req, res)=>{
@@ -79,14 +78,14 @@ router.put('/:id', (req, res)=>{
   updateableFields.forEach(field => {
     if (field in req.body) {
       toUpdate[field] = req.body[field];
-      }
+    }
   });
 
   Session
   // all key/value pairs in toUpdate will be updated -- that's what `$set` does
-  .findByIdAndUpdate(req.params.id, { $set: toUpdate }, {new: true})
-  .then(session => res.json(session.serialize()))
-  .catch(err => res.status(500).json({ message: 'Internal server error' }));
+    .findByIdAndUpdate(req.params.id, { $set: toUpdate }, {new: true})
+    .then(session => res.json(session.serialize()))
+    .catch(err => res.status(500).json({ message: 'Internal server error' }));
 });
 
 router.delete('/:id', (req, res) => {
