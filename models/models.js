@@ -5,9 +5,9 @@ mongoose.Promise = global.Promise;
 
 const SessionSchema = mongoose.Schema({
   title: String,
-  date: { type: String, required: true },
-  startTime: { type: String, required: true },
-  endTime: { type: String, required: true},
+  date: { type: Date, required: true },
+  startTime: { type: Date, required: true },
+  endTime: { type: Date, required: true},
   location: {type: String, required: true},
   notes:[{type: String}],
   attendees: [{type: String}],
