@@ -44,7 +44,7 @@ router.post('/', (req, res) => {
       console.error(message);
       return res.status(400).send(message);
     }
-  };
+  }
 
   Session
     .create({
