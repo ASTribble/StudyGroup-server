@@ -1,45 +1,69 @@
-# Thinkful Backend Template
 
-A template for developing and deploying Node.js apps.
+# StudyGroup
 
-## Getting started
+A. Scott Tribble   
+Thinkful React Capstone
 
-### Setting up a project
+## Overview
 
-* Move into your projects directory: `cd ~/YOUR_PROJECTS_DIRECTORY`
-* Clone this repository: `git clone https://github.com/Thinkful-Ed/backend-template YOUR_PROJECT_NAME`
-* Move into the project directory: `cd YOUR_PROJECT_NAME`
-* Install the dependencies: `npm install`
-* Create a new repo on GitHub: https://github.com/new
-    * Make sure the "Initialize this repository with a README" option is left unchecked
-* Update the remote to point to your GitHub repository: `git remote set-url origin https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY_NAME`
+StudyGroup is a web-based app that lets people in a given group easily communicate
+where and when they will be out studying.
 
-### Working on the project
+#### Link to Live App:
+  http://eager-brown-85af5e.netlify.com/
 
-* Move into the project directory: `cd ~/YOUR_PROJECTS_DIRECTORY/YOUR_PROJECT_NAME`
-* Run the development task: `npm start`
-    * Starts a server running at http://localhost:8080
-    * Automatically restarts when any of your files change
+#### Link to Repos:
+  client: https://github.com/thinkful-ei17/scott-study-group-client   
+  server: https://github.com/thinkful-ei17/scott-study-group-server
 
-## Databases
 
-By default, the template is configured to connect to a MongoDB database using Mongoose.  It can be changed to connect to a PostgreSQL database using Knex by replacing any imports of `db-mongoose.js` with imports of `db-knex.js`, and uncommenting the Postgres `DATABASE_URL` lines in `config.js`.
+## Scenarios
 
-## Deployment
+#### Scenario 1:  Scott.
+Scott is a student enrolled in a full-time web-development bootcamp that is an online school.  One afternoon, she decides that it would be REALLY NICE to leave her house and finish-up her schoolwork around some other people studying similar things.  Luckily, there are other students enrolled in the same school (although not her particular course) who use StudyGroup.  Scott checks-in and sees that Sally is studying right down the road, right now. She high-tails it to the cafe.
 
-Requires the [Heroku CLI client](https://devcenter.heroku.com/articles/heroku-command-line).
+#### Scenario 2:  Mo.
+Mo works full-time as a social worker but would really like to attend a web-development bootcamp.  She is working through some pre-requisites for an in-person course, but she is having a little trouble with a few concepts and could really use some help.  She isn't in school yet, so she doesn't have classmates or teachers to ask.  Luckily, she has some friends who are programmers, and they like to get together for coding sessions.  She made them all a StudyGroup, and now she can post that she will be studying on Sunday from 8am-3pm at Anna Bananna's, with the comment that she could use some help.  One of her friends checks his StudyGroup, sees that she'd like some help, and stops in.
 
-### Setting up the project on Heroku
+## Technology Stack
 
-* Move into the project directory: `cd ~/YOUR_PROJECTS_DIRECTORY/YOUR_PROJECT_NAME`
-* Create the Heroku app: `heroku create PROJECT_NAME`
+  - #### FrontEnd:
+    - React 
+    - Redux
+    - HTML
+    - CSS
+    - Node.js
 
-* If your backend connects to a database, you need to configure the database URL:
-    * For a MongoDB database: `heroku config:set DATABASE_URL=mongodb://USERNAME:PASSWORD@HOST:PORT/DATABASE_NAME`
-    * For a PostgreSQL database: `heroku config:set DATABASE_URL=postgresql://USERNAME:PASSWORD@HOST:PORT/DATABASE_NAME`
+    - Moment.js
+    - Thunk
+    - Redux-form
 
-* If you are creating a full-stack app, you need to configure the client origin: `heroku config:set CLIENT_ORIGIN=https://www.YOUR_DEPLOYED_CLIENT.com`
 
-### Deploying to Heroku
+  - #### BackEnd:
+    - Node.js
+    - Express
+    - Mongo
+    - Mongoose
+    - Cors
+    - Morgan
+    - Body-parser
 
-* Push your code to Heroku: `git push heroku master`
+  - #### Testing:
+    - Mocha
+    - Chai
+    - Enzyme
+    - Jest
+
+  - #### Hosting
+    - Heroku
+    - Netlify
+    - mLab
+
+
+
+## Future Goals
+
+    - Authentication
+    - Filtering the Sessions List
+    - Multiple Groups
+
