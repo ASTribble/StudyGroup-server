@@ -1,0 +1,31 @@
+const testData = [
+    {
+        title: 'Title 1',
+        startTime: new Date('2020-01-01T12:00:00-06:30'),
+        endTime: new Date('2020-01-01T13:00:00-06:30'),
+        location: 'Coffee Shop',
+        description: 'Description',
+        notes: ['note 1.1', 'note 1.2', 'note 1.3'],
+        attendees: ['Scott', 'John', 'Oscar']
+    },
+    {
+        title: 'Title 2',
+        startTime: new Date('2020-02-02T12:00:00-06:30'),
+        endTime: new Date ('2020-02-02T13:00:00-06:30'),
+        location: 'Waffle House',
+        description: 'Description',
+        notes: ['note 2.1', 'note 2.2', 'note 2.3'],
+        attendees: ['Scott', 'John', 'Oscar']
+    },
+    {
+        title: 'Title 3',
+        startTime: new Date('2020-03-03T12:00:00-06:30'),
+        endTime: new Date('2020-03-03T13:00:00-06:30'),
+        location: 'My house',
+        description: 'Description',
+        notes: ['note 3.1', 'note 3.2', 'note 3.3'],
+        attendees: ['Scott', 'John', 'Oscar']
+    }
+]
+
+module.exports = { testData };
