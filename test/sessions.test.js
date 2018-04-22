@@ -52,11 +52,12 @@ describe ('GET endpoint', () => {
             expect(session).to.have.property('description');
             expect(session).to.have.property('notes');
             expect(session).to.have.property('attendees');
-            
+
             //checking it doesn't have non-serialized property
             expect(res).to.not.have.property('_id');
         });
     });
+
 });
 
 describe('GET/:id Endpoint', () => {
@@ -78,7 +79,7 @@ describe('GET/:id Endpoint', () => {
         });
     });
 
-    it.only('Should return session with valid id', () => {
+    it('Should return session with valid id', () => {
         
         return chai.request(app)
         .get(`/sessions/${id}`)
@@ -99,5 +100,16 @@ describe('GET/:id Endpoint', () => {
             expect(_session.attendees.length).to.equal(session.attendees.length);
         });
     });
+
+    // it.only('Should reject invalid id', () => {
+    //     const badId = 'badId87654';
+
+    //     return chai.request(app)
+    //     .get(`/sessions/${badId}`)
+    //     .then(res => {
+    //        expect(res).to.be.rejected;
+    //     })
+      
+    // });
 
 });
