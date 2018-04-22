@@ -48,7 +48,7 @@ describe ('GET endpoint', () => {
             expect(session).to.have.property('startTime');
             expect(session).to.have.property('endTime');
             expect(session).to.have.property('location');
-            expect(session).to.have.property('descrition');
+            expect(session).to.have.property('description');
             expect(session).to.have.property('notes');
             expect(session).to.have.property('attendees');
             
