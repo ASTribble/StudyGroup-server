@@ -89,13 +89,14 @@ describe('GET/:id Endpoint', () => {
             const _session = res.body;
             //expect the properties from the endpoint to be the same 
             //as the properties from the database object
-            expect(_session.title).to.equal(session.title);
-            // expect(_session.startTime).to.equal(session.startTime);
-            // expect(_session.endTime).to.equal(session.endTime);
+            expect(_session.title).to.equal(session.title);      
             expect(_session.location).to.equal(session.location);
             expect(_session.description).to.equal(session.description);
-            // expect(_session.notes).to.equal(session.notes);
-            // expect(_session.attendees).to.equal(session.attendees);
+            //the equality was tricky with arrays and dates
+            expect(_session.startTime).to.exist;
+            expect(_session.endTime).to.exist;    
+            expect(_session.notes.length).to.equal(session.notes.length);
+            expect(_session.attendees.length).to.equal(session.attendees.length);
         });
     });
 
