@@ -1,11 +1,12 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 const expect = chai.expect;
 
 const {Session} = require('../models/models');
-const {testData} = require('./sessions-test-data');
+const testData = require('./sessions-test-data');
 const {app} = require('../index');
 
 
@@ -56,5 +57,46 @@ describe ('GET endpoint', () => {
             expect(res).to.not.have.property('_id');
         });
     });
-  
+});
+
+describe('GET/:id Endpoint', () => {
+
+    let session;
+    let id;
+
+    beforeEach(() => {
+        console.log('seeding sessions');
+        return Session.insertMany(testData)
+        .then(() => {
+            return Session.findOne()
+            .then(res => {
+                session = res;
+                id = res._id;
+                console.log('id:', id);
+                console.log('session', session)
+            });
+        });
+    });
+
+    it.only('Should return session with valid id', () => {
+        
+        return chai.request(app)
+        .get(`/sessions/${id}`)
+        .then(res => {
+            expect(res.body).to.be.an('object');
+            expect(res.body).to.not.be.empty;
+
+            const _session = res.body;
+            //expect the properties from the endpoint to be the same 
+            //as the properties from the database object
+            expect(_session.title).to.equal(session.title);
+            // expect(_session.startTime).to.equal(session.startTime);
+            // expect(_session.endTime).to.equal(session.endTime);
+            expect(_session.location).to.equal(session.location);
+            expect(_session.description).to.equal(session.description);
+            // expect(_session.notes).to.equal(session.notes);
+            // expect(_session.attendees).to.equal(session.attendees);
+        });
+    });
+
 });
