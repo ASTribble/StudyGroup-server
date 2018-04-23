@@ -152,7 +152,7 @@ describe('POST endpoint', () => {
   });
 
 
-  it.only('Should fail if missing location field', () => {
+  it('Should fail if missing location field', () => {
     const badLocation = {
       startTime: '2020-01-01T12:00:00-06:30',
       endTime: '2020-01-01T13:00:00-06:30'
@@ -168,7 +168,7 @@ describe('POST endpoint', () => {
   });
 
 
-  it.only('Should fail if missing startTime field', () => {
+  it('Should fail if missing startTime field', () => {
     const badStart = {
       endTime: '2020-01-01T13:00:00-06:30',
       location: 'Coffee Shop'
@@ -183,7 +183,7 @@ describe('POST endpoint', () => {
       });
   });
 
-  it.only('Should fail if missing endTime field', () => {
+  it('Should fail if missing endTime field', () => {
     const badEnd = {
       startTime: '2020-01-01T12:00:00-06:30',
       location: 'Coffee Shop'
