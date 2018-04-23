@@ -26,11 +26,12 @@ router.get('/:id', (req, res)=>{
   
   Session
     .findById(req.params.id)
-    .then(session => res.json(session.serialize()))
-    .catch(err =>{
-      console.error(err);
-      res.status(500).json({message: 'Internal server error'});
-    });
+    .then(session => 
+      res.json(session.serialize())
+    )
+    .catch(err => 
+      res.status(404).json({message: 'Session not found, please check id'})
+    );
 });
 
 router.post('/', (req, res) => {
@@ -41,8 +42,8 @@ router.post('/', (req, res) => {
     const field = requiredFields[i];
     if (!(field in req.body)) {
       const message = `Missing \`${field}\` in request body`;
-      console.error(message);
-      return res.status(400).send(message);
+      // console.error(message);
+      return res.status(400).json(message);
     }
   }
 
@@ -59,7 +60,7 @@ router.post('/', (req, res) => {
     .then(session => res.status(201).json(session.serialize()))
     .catch(err => {
       console.error(err);
-      res.status(500).json({ message: 'Internal server error' });
+      return res.status(500).json({ message: 'Internal server error' });
     });
 });
 

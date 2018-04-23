@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "test": "mocha --colors --watch  test/setup.test.js */*.test.js",
+    "test": "mocha --colors --exit test/setup.test.js */*.test.js",
     "cover": "nodemon --exec nyc --reporter=lcov --reporter=text-summary mocha test/setup.test.js */*.test.js",
     "heroku": "node index.js",
     "travis": "mocha test/setup.test.js */*.test.js"
@@ -15,16 +15,18 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
+    "dotenv": "^5.0.1",
     "express": "^4.15.4",
-    "knex": "^0.13.0",
-    "mongoose": "^4.11.12",
+    "knex": "^0.14.6",
+    "moment": "^2.22.1",
+    "mongoose": "^5.0.15",
     "morgan": "^1.8.2",
     "pg": "^7.3.0"
   },
   "devDependencies": {
     "chai": "^4.1.2",
-    "chai-http": "^3.0.0",
-    "mocha": "^3.5.3",
+    "chai-http": "^4.0.0",
+    "mocha": "^5.1.1",
     "nodemon": "^1.12.1",
     "nyc": "^11.2.1"
   }
