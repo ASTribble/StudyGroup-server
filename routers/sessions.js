@@ -34,15 +34,15 @@ router.get('/:id', (req, res)=>{
 });
 
 router.post('/', (req, res) => {
-  console.log('post req.body:', req.body);
+  // console.log('post req.body:', req.body);
   const requiredFields = ['startTime', 'endTime', 'location'];
   
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
       const message = `Missing \`${field}\` in request body`;
-      console.error(message);
-      return res.status(400).send(message);
+      // console.error(message);
+      return res.status(400).json(message);
     }
   }
 
@@ -59,7 +59,7 @@ router.post('/', (req, res) => {
     .then(session => res.status(201).json(session.serialize()))
     .catch(err => {
       console.error(err);
-      res.status(500).json({ message: 'Internal server error' });
+      return res.status(500).json({ message: 'Internal server error' });
     });
 });
 

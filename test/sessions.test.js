@@ -120,17 +120,11 @@ describe('POST endpoint', () => {
   
   const newSession = {
     title: 'Title 1',
-
     startTime: '2020-01-01T12:00:00-06:30',
-
     endTime: '2020-01-01T13:00:00-06:30',
-
     location: 'Coffee Shop',
-
     description: 'Description',
-
     notes: ['note 1.1', 'note 1.2', 'note 1.3'],
-
     attendees: ['Scott', 'John', 'Oscar']
   };
 
@@ -158,4 +152,49 @@ describe('POST endpoint', () => {
   });
 
 
+  it.only('Should fail if missing location field', () => {
+    const badLocation = {
+      startTime: '2020-01-01T12:00:00-06:30',
+      endTime: '2020-01-01T13:00:00-06:30'
+    };
+
+    return chai.request(app)
+      .post('/sessions')
+      .send(badLocation)
+      .then(res => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.equal('Missing `location` in request body');
+      });
+  });
+
+
+  it.only('Should fail if missing startTime field', () => {
+    const badStart = {
+      endTime: '2020-01-01T13:00:00-06:30',
+      location: 'Coffee Shop'
+    };
+
+    return chai.request(app)
+      .post('/sessions')
+      .send(badStart)
+      .then(res => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.equal('Missing `startTime` in request body');
+      });
+  });
+
+  it.only('Should fail if missing endTime field', () => {
+    const badEnd = {
+      startTime: '2020-01-01T12:00:00-06:30',
+      location: 'Coffee Shop'
+    };
+
+    return chai.request(app)
+      .post('/sessions')
+      .send(badEnd)
+      .then(res => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.equal('Missing `endTime` in request body');
+      });
+  });
 });
