@@ -26,15 +26,16 @@ router.get('/:id', (req, res)=>{
   
   Session
     .findById(req.params.id)
-    .then(session => res.json(session.serialize()))
-    .catch(err =>{
-      console.error(err);
-      res.status(500).json({message: 'Internal server error'});
-    });
+    .then(session => 
+      res.json(session.serialize())
+    )
+    .catch(err => 
+      res.status(404).json({message: 'Session not found, please check id'})
+    );
 });
 
 router.post('/', (req, res) => {
-  // console.log('post req.body:', req.body);
+  console.log('post req.body:', req.body);
   const requiredFields = ['startTime', 'endTime', 'location'];
   
   for (let i = 0; i < requiredFields.length; i++) {

@@ -79,8 +79,6 @@ describe('GET/:id Endpoint', () => {
           .then(res => {
             session = res;
             id = res._id;
-            console.log('id:', id);
-            console.log('session', session);
           });
       });
   });
@@ -107,16 +105,15 @@ describe('GET/:id Endpoint', () => {
       });
   });
 
-  // it.only('Should reject invalid id', () => {
-  //     const badId = 'badId87654';
+  it.only('Should reject invalid id', () => {
+    const badId = 'badId87654';
 
-  //     return chai.request(app)
-  //     .get(`/sessions/${badId}`)
-  //     .then(res => {
-  //        expect(res).to.be.rejected;
-  //     })
-      
-  // });
+    return chai.request(app)
+      .get(`/sessions/${badId}`)
+      .then(res => {
+        expect(res).to.have.status(404);
+      });    
+  });
 
 });
 
