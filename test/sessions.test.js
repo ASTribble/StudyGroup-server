@@ -227,7 +227,7 @@ describe('It should update when sent valid options', function() {
       );
   });
 
-  it.only('Should update title field', () => {
+  it('Should update title field', () => {
     const newTitle = {
       id,
       title: 'New Title'
@@ -249,6 +249,49 @@ describe('It should update when sent valid options', function() {
         expect(updatedSession).to.have.property('location', initialSession.location);
 
         expect(updatedSession).to.have.property('description', initialSession.description);
+       
+        expect(updatedSession.notes.length).to.equal(initialSession.notes.length); 
+        for (let i = 0; i < updatedSession.notes.length; i++){
+          expect(updatedSession.notes[i]).to.equal(initialSession.notes[i]);
+        }
+
+        expect(updatedSession.attendees.length).to.equal(initialSession.attendees.length); 
+        for (let i = 0; i < updatedSession.attendees.length; i++){
+          expect(updatedSession.attendees[i]).to.equal(initialSession.attendees[i]);
+        }
+
+      });
+
+  });
+
+  it.only('Should update all fields sent in', () => {
+    const updateFields = {
+      id,
+      title: 'New Title',
+      location: 'New Location',
+      description: 'New Description',
+    };
+
+    return chai.request(app)
+      .put(`/sessions/${id}`)
+      .set({id: id})
+      .send(updateFields)
+      .then(res => {
+        const updatedSession = res.body;
+        expect(updatedSession).to.be.an('object');
+        expect(updatedSession).to.not.be.empty;
+
+        expect(updatedSession).to.have.property('title');
+        expect(updatedSession.title).to.not.equal(initialSession.title);
+        expect(updatedSession.title).to.equal(updateFields.title);
+
+        expect(updatedSession).to.have.property('title');
+        expect(updatedSession.title).to.not.equal(initialSession.title);
+        expect(updatedSession.title).to.equal(updateFields.title);
+        expect(updatedSession).to.have.property('title');
+
+        expect(updatedSession.title).to.not.equal(initialSession.title);
+        expect(updatedSession.title).to.equal(updateFields.title);
        
         expect(updatedSession.notes.length).to.equal(initialSession.notes.length); 
         for (let i = 0; i < updatedSession.notes.length; i++){

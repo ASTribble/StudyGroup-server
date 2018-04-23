@@ -18,6 +18,7 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 
 before(function() {
+  this.timeout(10000);
   return dbConnect(TEST_DATABASE_URL);
 });
 
