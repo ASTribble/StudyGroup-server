@@ -8,8 +8,7 @@ const routerSessions = require('./routers/sessions');
 
 const {PORT, CLIENT_ORIGIN, DATABASE_URL} = require('./config');
 const {dbConnect} = require('./db-mongoose');
-// const mongoose = require('mongoose');
-// const {dbConnect} = require('./db-knex');
+
 const app = express();
 app.use(bodyParser.json());
 
