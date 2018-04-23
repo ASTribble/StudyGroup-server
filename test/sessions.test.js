@@ -13,6 +13,7 @@ const {app} = require('../index');
 
 
 
+// ==== GET ENDPOINT ================================
 
 describe ('GET endpoint', () => {
 
@@ -61,6 +62,9 @@ describe ('GET endpoint', () => {
   });
 
 });
+
+
+// ==== GET BY ID ENDPOINT ===============================
 
 describe('GET/:id Endpoint', () => {
 
@@ -115,6 +119,8 @@ describe('GET/:id Endpoint', () => {
   // });
 
 });
+
+// ==== POST ENDPOINT ===============================
 
 describe('POST endpoint', () => {
   
@@ -197,4 +203,65 @@ describe('POST endpoint', () => {
         expect(res.body).to.equal('Missing `endTime` in request body');
       });
   });
+});
+
+// ==== PUT ENDPOINT ================================
+
+describe('It should update when sent valid options', function() {
+
+  let initialSession,
+    id;
+
+  beforeEach(() => {
+    console.log('Seeding session');
+    console.log('testData[0]:', testData[0]);
+
+    return Session.create(testData[0])
+      .then(res => {
+        console.log('res in seeding data', res);
+        initialSession = res;
+        id = res._id;
+      })
+      .catch(err => 
+        console.error('Seeding session failed')
+      );
+  });
+
+  it.only('Should update title field', () => {
+    const newTitle = {
+      id,
+      title: 'New Title'
+    };
+
+    return chai.request(app)
+      .put(`/sessions/${id}`)
+      .set({id: id})
+      .send(newTitle)
+      .then(res => {
+        const updatedSession = res.body;
+        expect(updatedSession).to.be.an('object');
+        expect(updatedSession).to.not.be.empty;
+
+        expect(updatedSession).to.have.property('title');
+        expect(updatedSession.title).to.not.equal(initialSession.title);
+        expect(updatedSession.title).to.equal(newTitle.title);
+
+        expect(updatedSession).to.have.property('location', initialSession.location);
+
+        expect(updatedSession).to.have.property('description', initialSession.description);
+       
+        expect(updatedSession.notes.length).to.equal(initialSession.notes.length); 
+        for (let i = 0; i < updatedSession.notes.length; i++){
+          expect(updatedSession.notes[i]).to.equal(initialSession.notes[i]);
+        }
+
+        expect(updatedSession.attendees.length).to.equal(initialSession.attendees.length); 
+        for (let i = 0; i < updatedSession.attendees.length; i++){
+          expect(updatedSession.attendees[i]).to.equal(initialSession.attendees[i]);
+        }
+
+      });
+
+  });
+
 });
