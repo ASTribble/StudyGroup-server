@@ -18,21 +18,21 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 
 before(function() {
-    return dbConnect(TEST_DATABASE_URL);
+  return dbConnect(TEST_DATABASE_URL);
 });
 
 afterEach(function() {
-    console.log('dropping database');
-    return mongoose.connection.dropDatabase();
+  console.log('dropping database');
+  return mongoose.connection.dropDatabase();
 });
 
 after(function() {
-    return dbDisconnect();
+  return dbDisconnect();
 });
 
 
 describe('Mocha and Chai', function() {
-    it('should be properly setup', function() {
-        expect(true).to.be.true;
-    });
+  it('should be properly setup', function() {
+    expect(true).to.be.true;
+  });
 });
