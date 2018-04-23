@@ -105,7 +105,7 @@ describe('GET/:id Endpoint', () => {
       });
   });
 
-  it.only('Should reject invalid id', () => {
+  it('Should reject invalid id', () => {
     const badId = 'badId87654';
 
     return chai.request(app)
