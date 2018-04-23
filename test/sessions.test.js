@@ -214,16 +214,14 @@ describe('It should update when sent valid options', function() {
 
   beforeEach(() => {
     console.log('Seeding session');
-    console.log('testData[0]:', testData[0]);
 
     return Session.create(testData[0])
       .then(res => {
-        console.log('res in seeding data', res);
         initialSession = res;
         id = res._id;
       })
       .catch(err => 
-        console.error('Seeding session failed')
+        console.error('Seeding session failed:', err)
       );
   });
 
@@ -264,7 +262,7 @@ describe('It should update when sent valid options', function() {
 
   });
 
-  it.only('Should update all fields sent in', () => {
+  it('Should update all fields sent in', () => {
     const updateFields = {
       id,
       title: 'New Title',
@@ -293,6 +291,7 @@ describe('It should update when sent valid options', function() {
         expect(updatedSession.title).to.not.equal(initialSession.title);
         expect(updatedSession.title).to.equal(updateFields.title);
        
+        // --- did not ask to update these --------------------------------------------
         expect(updatedSession.notes.length).to.equal(initialSession.notes.length); 
         for (let i = 0; i < updatedSession.notes.length; i++){
           expect(updatedSession.notes[i]).to.equal(initialSession.notes[i]);
@@ -302,9 +301,84 @@ describe('It should update when sent valid options', function() {
         for (let i = 0; i < updatedSession.attendees.length; i++){
           expect(updatedSession.attendees[i]).to.equal(initialSession.attendees[i]);
         }
-
       });
-
   });
+});
+
+describe('It should not update if bad request', () => {
+  
+  const badId = 'bad id';
+  let initialSession, 
+    id;
+
+  beforeEach(() => {
+    console.log('Seeding session');
+
+    return Session.create(testData[0])
+      .then(res => {
+        initialSession = res;
+        id = res.id;
+      })
+      .catch(err =>
+        console.error('Seeding session failed:', err)
+      );
+  });
+
+  it('Should not update if no id in request body', () => {
+
+    const badUpdateFields = {
+      title: 'New Title',
+      location: 'New Location',
+      description: 'New Description',
+    };
+
+    return chai.request(app)
+      .put(`/sessions/${id}`)
+      .send(badUpdateFields)
+      .then(res => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.have.property('message', `Request path id (${id}) and request body id ` +
+          `(${undefined}) must match`);
+      });
+  });
+  
+  it('Should not update if id in request body does not match id in params', () => {
+
+    const badUpdateFields = {
+      id: badId,
+      title: 'New Title',
+      location: 'New Location',
+      description: 'New Description',
+    };
+
+    return chai.request(app)
+      .put(`/sessions/${id}`)
+      .send(badUpdateFields)
+      .then(res => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.have.property('message', `Request path id (${id}) and request body id ` +
+          `(${badId}) must match`);
+      });
+  });
+
+  it('Should not update if id in request body does not match id in params', () => {
+
+    const badUpdateFields = {
+      id,
+      title: 'New Title',
+      location: 'New Location',
+      description: 'New Description',
+    };
+
+    return chai.request(app)
+      .put(`/sessions/${badId}`)
+      .send(badUpdateFields)
+      .then(res => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.have.property('message', `Request path id (${badId}) and request body id ` +
+          `(${id}) must match`);
+      });
+  });
+
 
 });
